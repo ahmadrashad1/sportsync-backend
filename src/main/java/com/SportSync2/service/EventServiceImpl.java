@@ -37,6 +37,7 @@ public class EventServiceImpl implements EventService {
         User host = userRepository.findById(hostId)
                 .orElseThrow(() -> new RuntimeException("Host not found with ID: " + hostId));
 
+
         Event event = eventMapper.toEntity(eventDTO);
         event.setHost(host);
         event.setCreatedBy(host);
