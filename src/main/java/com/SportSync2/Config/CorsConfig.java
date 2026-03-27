@@ -21,9 +21,13 @@ public class CorsConfig {
      * allowCredentials is false so wildcard headers work reliably for browser preflight (OPTIONS).
      * The app uses JSON + localStorage, not cross-origin cookies.
      */
+    /**
+     * Default {@code *} allows any Origin (with allowCredentials=false). Set {@code cors.allowed-origins}
+     * to a comma list to restrict in production.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource(
-            @Value("${cors.allowed-origins:http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,https://sport-sync-frontend-7wl4.vercel.app,https://*.vercel.app,https://*.ngrok-free.dev,https://*.ngrok.app}") String allowedOrigins) {
+            @Value("${cors.allowed-origins:*}") String allowedOrigins) {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> patterns = Arrays.stream(allowedOrigins.split(","))
                 .map(String::trim)
