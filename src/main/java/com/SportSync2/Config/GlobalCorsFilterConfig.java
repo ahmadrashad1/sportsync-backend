@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
 @Configuration
-public class CorsPreflightFilterConfig {
+public class GlobalCorsFilterConfig {
 
     @Bean
-    public FilterRegistrationBean<CorsPreflightFilter> corsPreflightFilterRegistration() {
-        FilterRegistrationBean<CorsPreflightFilter> bean = new FilterRegistrationBean<>();
-        bean.setFilter(new CorsPreflightFilter());
+    public FilterRegistrationBean<GlobalCorsFilter> globalCorsFilterRegistration() {
+        FilterRegistrationBean<GlobalCorsFilter> bean = new FilterRegistrationBean<>();
+        bean.setFilter(new GlobalCorsFilter());
         bean.addUrlPatterns("/*");
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
