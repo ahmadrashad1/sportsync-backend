@@ -23,7 +23,7 @@ public class CorsConfig {
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource(
-            @Value("${cors.allowed-origins:http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,https://*.vercel.app,https://*.ngrok-free.dev,https://*.ngrok.app}") String allowedOrigins) {
+            @Value("${cors.allowed-origins:http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,https://sport-sync-frontend-7wl4.vercel.app,https://*.vercel.app,https://*.ngrok-free.dev,https://*.ngrok.app}") String allowedOrigins) {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> patterns = Arrays.stream(allowedOrigins.split(","))
                 .map(String::trim)
