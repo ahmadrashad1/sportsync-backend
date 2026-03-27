@@ -31,8 +31,23 @@ class GroundServiceTest {
     @Test
     void testGetAllGrounds_ReturnsListOfGroundDTOs() {
         // Arrange
-        Ground ground1 = new Ground(1L, "Football Field", "Campus A");
-        Ground ground2 = new Ground(2L, "Cricket Ground", "Campus B");
+        Ground ground1 = Ground.builder()
+                .id(1L)
+                .name("Football Field")
+                .location("Campus A")
+                .latitude(33.6844)
+                .longitude(73.0479)
+                .city("Islamabad")
+                .build();
+        
+        Ground ground2 = Ground.builder()
+                .id(2L)
+                .name("Cricket Ground")
+                .location("Campus B")
+                .latitude(33.5793)
+                .longitude(74.3086)
+                .city("Rawalpindi")
+                .build();
 
         when(groundRepo.findAll()).thenReturn(Arrays.asList(ground1, ground2));
 

@@ -1,0 +1,49 @@
+services:
+  frontend:
+    build:
+      context: ../SportSync-frontend
+    container_name: sportsync-frontend
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.4
+    container_name: sportsync-db
+    environment:
+      MYSQL_DATABASE: SportSyncDataB2
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: .
+    container_name: sportsync-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:mysql://db:3306/SportSyncDataB2
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PORT: 587
+      MAIL_USERNAME: your-email@gmail.com
+      MAIL_PASSWORD: your-app-password
+      NEWS_API_KEY: d4532b0aa6ab44dc94fc05ce22bb9beb
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
